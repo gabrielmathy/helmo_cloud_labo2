@@ -1,5 +1,6 @@
 general:
   vulnerabilities:
+    - CVE-2022-3570
     - CVE-2021-30473
     - CVE-2021-30474
     - CVE-2021-30475

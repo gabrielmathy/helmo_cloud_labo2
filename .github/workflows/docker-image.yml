@@ -30,6 +30,12 @@ jobs:
       - name: HelloWorld
         run : |
           python3 helloworld.py
+      - name: Login teste
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.RESGISTRY_PASSWORD }}
       - name: Build and Tag image
         run: |
           docker build -f ./Dockerfile .

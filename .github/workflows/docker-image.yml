@@ -38,4 +38,13 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - name: Build and Tag image
         run: |
-          docker build -f ./Dockerfile .
+          docker build -f ./Dockerfile -t ${{ secrets.ACR_LOGIN_SERVER }}/helloworld-app:${{ github.run_number }} .
+      - name: Scan image
+        uses: Azure/container-scan@v0
+        with:
+          image-name: ${{ secrets.ACR_LOGIN_SERVER }}/helloworld-app:${{ github.run_number }}
+          severity-threshold: CRITICAL
+          run-quality-checks: true  
+      - name: Push image
+        run: |
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/helloworld-app:${{ github.run_number }}
